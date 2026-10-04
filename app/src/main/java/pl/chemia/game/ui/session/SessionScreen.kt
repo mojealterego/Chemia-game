@@ -219,7 +219,7 @@ private fun GameCardPanel(card: GameCard, activePlayer: String) {
             Spacer(Modifier.height(18.dp))
             if (card.requiresMutualYes) {
                 Text(
-                    "Ta karta wymaga wyraźnego TAK obojga.",
+                    androidx.compose.ui.res.stringResource(R.string.mutual_yes),
                     color = Gold,
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
