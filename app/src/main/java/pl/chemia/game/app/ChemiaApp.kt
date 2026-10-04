@@ -40,7 +40,7 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                 composable(Route.Age) {
                     AgeGateScreen(
                         onAccepted = {
-                            if (state.settings.soundEnabled) SoundEngine.play(SoundCue.START)
+                            if (state.settings.soundEnabled) SoundEngine.play(SoundCue.CONSENT)
                             navController.navigate(Route.Home) {
                                 popUpTo(Route.Age) { inclusive = true }
                             }
@@ -76,6 +76,7 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                         onChange = vm::updateConsentB,
                         onComplete = {
                             if (vm.finalizeConsent()) {
+                                if (state.settings.soundEnabled) SoundEngine.play(SoundCue.CONSENT)
                                 navController.navigate(Route.Setup)
                             }
                         },
@@ -121,6 +122,7 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                             goHome(navController)
                         },
                         onAfterglow = {
+                            if (state.settings.soundEnabled) SoundEngine.play(SoundCue.AFTERGLOW)
                             vm.nextAfterglow()
                             navController.navigate(Route.Afterglow) {
                                 popUpTo(Route.Session) { inclusive = true }
