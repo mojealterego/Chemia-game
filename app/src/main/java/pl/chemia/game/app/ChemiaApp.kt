@@ -133,6 +133,9 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                 composable(Route.Afterglow) {
                     AfterglowScreen(
                         card = state.afterglowCard,
+                        completedCount = state.session.completedCount,
+                        skippedCount = state.session.skippedCount,
+                        finalHeat = state.session.heat,
                         onAnother = vm::nextAfterglow,
                         onFinish = {
                             vm.clearSensitiveSession()
