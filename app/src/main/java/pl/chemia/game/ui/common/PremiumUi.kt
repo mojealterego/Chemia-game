@@ -28,6 +28,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -192,13 +193,14 @@ fun GlassPanel(content: @Composable ColumnScope.() -> Unit) {
 fun PrimaryButton(
     text: String,
     enabled: Boolean = true,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(18.dp)
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth().clip(shape),
+        modifier = modifier.fillMaxWidth().clip(shape),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (enabled) Burgundy else Divider,
             contentColor = Ivory,
