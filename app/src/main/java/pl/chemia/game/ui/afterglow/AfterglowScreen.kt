@@ -3,6 +3,7 @@ package pl.chemia.game.ui.afterglow
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,13 +24,19 @@ import androidx.compose.ui.unit.dp
 import pl.chemia.game.R
 import pl.chemia.game.model.GameCard
 import pl.chemia.game.ui.common.BrandHeader
+import pl.chemia.game.ui.common.PremiumChip
 import pl.chemia.game.ui.common.PrimaryButton
 import pl.chemia.game.ui.common.ScreenTitle
 import pl.chemia.game.ui.theme.Gold
+import pl.chemia.game.ui.theme.Rose
+import pl.chemia.game.ui.theme.Teal
 
 @Composable
 fun AfterglowScreen(
     card: GameCard?,
+    completedCount: Int,
+    skippedCount: Int,
+    finalHeat: Int,
     onAnother: () -> Unit,
     onFinish: () -> Unit,
 ) {
@@ -42,6 +49,23 @@ fun AfterglowScreen(
             title = androidx.compose.ui.res.stringResource(R.string.afterglow_title),
             body = androidx.compose.ui.res.stringResource(R.string.afterglow_body),
         )
+        Spacer(Modifier.height(18.dp))
+        Row(Modifier.fillMaxWidth()) {
+            PremiumChip(
+                androidx.compose.ui.res.stringResource(R.string.completed_cards, completedCount),
+                Teal,
+            )
+            Spacer(Modifier.weight(1f))
+            PremiumChip(
+                androidx.compose.ui.res.stringResource(R.string.skipped_cards, skippedCount),
+                Gold,
+            )
+            Spacer(Modifier.weight(1f))
+            PremiumChip(
+                androidx.compose.ui.res.stringResource(R.string.final_heat, finalHeat),
+                Rose,
+            )
+        }
         Spacer(Modifier.height(18.dp))
         card?.let {
             Card(
