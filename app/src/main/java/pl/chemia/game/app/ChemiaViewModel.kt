@@ -150,9 +150,7 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             session = updated,
             currentPlayerIndex = 1 - uiState.currentPlayerIndex,
         )
-        if (reachedAfterglow) {
-            nextAfterglow()
-        } else {
+        if (!reachedAfterglow) {
             drawNext(updated)
         }
         return reachedAfterglow
@@ -172,9 +170,12 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
 
     fun clearSensitiveSession() {
         uiState = uiState.copy(
-            consentA = ConsentProfile(),
-            consentB = ConsentProfile(),
-            effectiveConsent = intersectConsent(ConsentProfile(), ConsentProfile()),
+            consentA = ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+            consentB = ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+            effectiveConsent = intersectConsent(
+                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+            ),
             consentConflict = false,
             playerA = "Partner 1",
             playerB = "Partner 2",
