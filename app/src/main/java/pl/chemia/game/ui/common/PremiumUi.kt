@@ -16,6 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -28,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,28 +52,86 @@ import pl.chemia.game.ui.theme.Teal
 
 @Composable
 fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
+    val motion = rememberInfiniteTransition(label = "ambient")
+    val roseShift by motion.animateFloat(
+        initialValue = -24f,
+        targetValue = 42f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(7_200),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "roseShift",
+    )
+    val goldShift by motion.animateFloat(
+        initialValue = 32f,
+        targetValue = -36f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(9_000),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "goldShift",
+    )
+    val glowAlpha by motion.animateFloat(
+        initialValue = 0.78f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(3_800),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "glowAlpha",
+    )
+
     Box(
         Modifier
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    listOf(Color(0xFF050407), Color(0xFF140A14), Obsidian)
+                    listOf(
+                        Color(0xFF050407),
+                        Color(0xFF140A14),
+                        Color(0xFF0D0810),
+                        Obsidian,
+                    )
                 )
             )
     ) {
         Box(
             Modifier
-                .size(300.dp)
+                .size(310.dp)
                 .align(Alignment.TopEnd)
-                .blur(78.dp)
-                .background(Rose.copy(alpha = 0.17f), CircleShape)
+                .graphicsLayer {
+                    translationX = roseShift
+                    translationY = roseShift * 0.45f
+                    alpha = glowAlpha
+                    scaleX = 1.05f
+                    scaleY = 1.05f
+                }
+                .blur(82.dp)
+                .background(Rose.copy(alpha = 0.18f), CircleShape)
         )
         Box(
             Modifier
-                .size(260.dp)
+                .size(275.dp)
                 .align(Alignment.BottomStart)
-                .blur(88.dp)
-                .background(Gold.copy(alpha = 0.10f), CircleShape)
+                .graphicsLayer {
+                    translationX = goldShift
+                    translationY = goldShift * -0.35f
+                    alpha = glowAlpha * 0.82f
+                }
+                .blur(92.dp)
+                .background(Gold.copy(alpha = 0.11f), CircleShape)
+        )
+        Box(
+            Modifier
+                .size(180.dp)
+                .align(Alignment.Center)
+                .graphicsLayer {
+                    translationX = roseShift * -0.28f
+                    translationY = goldShift * 0.24f
+                    alpha = 0.42f
+                }
+                .blur(72.dp)
+                .background(Burgundy.copy(alpha = 0.11f), CircleShape)
         )
         content()
     }
