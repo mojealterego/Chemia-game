@@ -31,6 +31,9 @@ jobs:
       - name: Unit tests
         run: gradle :app:testAdultDebugUnitTest :app:testPlayDebugUnitTest --stacktrace
 
+      - name: Compile Compose UI tests
+        run: gradle :app:compileAdultDebugAndroidTestKotlin :app:compilePlayDebugAndroidTestKotlin --stacktrace
+
       - name: Lint
         run: gradle :app:lintAdultDebug :app:lintPlayDebug --stacktrace
 
