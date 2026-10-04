@@ -37,7 +37,7 @@ fun HomeScreen(onNewGame: () -> Unit) {
             )
             Spacer(Modifier.height(14.dp))
             Text(
-                "Bez konta • bez internetu • bez historii sesji",
+                androidx.compose.ui.res.stringResource(R.string.home_privacy),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium,
             )
