@@ -82,6 +82,12 @@ fun SessionScreen(
 
     BackHandler(onBack = onEnd)
 
+    LaunchedEffect(card?.id, soundEnabled) {
+        if (soundEnabled && card != null) {
+            SoundEngine.play(SoundCue.DRAW)
+        }
+    }
+
     LaunchedEffect(Unit) {
         while (remaining > 0L) {
             delay(1000)
@@ -116,7 +122,13 @@ fun SessionScreen(
             trackColor = Divider,
         )
         Spacer(Modifier.height(12.dp))
-        OutlinedButton(onClick = { discreet = true }, modifier = Modifier.fillMaxWidth()) {
+        OutlinedButton(
+            onClick = {
+                if (soundEnabled) SoundEngine.play(SoundCue.DISCREET)
+                discreet = true
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
             Text(androidx.compose.ui.res.stringResource(R.string.discreet))
         }
         Spacer(Modifier.height(14.dp))
