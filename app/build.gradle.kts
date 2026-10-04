@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "pl.chemia.game"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "pl.chemia.game"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 2
         versionName = "1.1.0"
     }
