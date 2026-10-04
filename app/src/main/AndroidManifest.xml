@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:allowBackup="false"
+        android:allowBackup="false"\n        android:icon="@drawable/ic_chemia_launcher"\n        android:roundIcon="@drawable/ic_chemia_launcher"
         android:label="CHEMIA"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chemia">
