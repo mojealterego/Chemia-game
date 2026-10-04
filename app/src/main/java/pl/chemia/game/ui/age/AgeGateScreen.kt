@@ -21,6 +21,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import pl.chemia.game.R
@@ -56,13 +57,14 @@ fun AgeGateScreen(onAccepted: () -> Unit) {
             Spacer(Modifier.height(8.dp))
             Text(androidx.compose.ui.res.stringResource(R.string.age_body), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(18.dp))
-            ConsentCheck(adultA, { adultA = it }, androidx.compose.ui.res.stringResource(R.string.age_partner_a))
-            ConsentCheck(adultB, { adultB = it }, androidx.compose.ui.res.stringResource(R.string.age_partner_b))
-            ConsentCheck(consent, { consent = it }, androidx.compose.ui.res.stringResource(R.string.age_consent))
+            ConsentCheck(adultA, { adultA = it }, androidx.compose.ui.res.stringResource(R.string.age_partner_a), "age_partner_a")
+            ConsentCheck(adultB, { adultB = it }, androidx.compose.ui.res.stringResource(R.string.age_partner_b), "age_partner_b")
+            ConsentCheck(consent, { consent = it }, androidx.compose.ui.res.stringResource(R.string.age_consent), "age_voluntary")
             Spacer(Modifier.height(18.dp))
             PrimaryButton(
                 text = androidx.compose.ui.res.stringResource(R.string.continue_label),
                 enabled = adultA && adultB && consent,
+                modifier = Modifier.testTag("age_continue"),
                 onClick = onAccepted,
             )
         }
@@ -70,9 +72,18 @@ fun AgeGateScreen(onAccepted: () -> Unit) {
 }
 
 @Composable
-private fun ConsentCheck(checked: Boolean, onChange: (Boolean) -> Unit, label: String) {
+private fun ConsentCheck(
+    checked: Boolean,
+    onChange: (Boolean) -> Unit,
+    label: String,
+    tag: String,
+) {
     Row(
-        Modifier.fillMaxWidth().clickable { onChange(!checked) }.semantics(mergeDescendants = true) {},
+        Modifier
+            .fillMaxWidth()
+            .testTag(tag)
+            .clickable { onChange(!checked) }
+            .semantics(mergeDescendants = true) {},
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(checked = checked, onCheckedChange = onChange)
