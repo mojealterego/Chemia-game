@@ -50,4 +50,9 @@
     <string name="intensity_spicy">SPICY</string>
     <string name="intensity_hot">HOT</string>
     <string name="intensity_extreme">EXTREME</string>
+    <string name="home_privacy">Bez konta • bez internetu • bez historii sesji</string>
+    <string name="mutual_yes">Ta karta wymaga wyraźnego TAK obojga.</string>
+    <string name="completed_cards">Wykonane: %1$d</string>
+    <string name="skipped_cards">Pominięte: %1$d</string>
+    <string name="final_heat">HEAT: %1$d</string>
 </resources>
