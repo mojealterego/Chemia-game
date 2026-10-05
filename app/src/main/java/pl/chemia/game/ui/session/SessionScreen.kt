@@ -71,6 +71,7 @@ fun SessionScreen(
     remainingSecondsProvider: () -> Long,
     onSkip: () -> Unit,
     onDone: () -> Boolean,
+    onReviewConsent: () -> Unit,
     onEnd: () -> Unit,
     onAfterglow: () -> Unit,
 ) {
@@ -189,6 +190,10 @@ fun SessionScreen(
             }
         }
         Spacer(Modifier.height(10.dp))
+        OutlinedButton(onClick = onReviewConsent, modifier = Modifier.fillMaxWidth()) {
+            Text(androidx.compose.ui.res.stringResource(R.string.review_consent))
+        }
+        Spacer(Modifier.height(8.dp))
         OutlinedButton(onClick = onEnd, modifier = Modifier.fillMaxWidth()) {
             Text(androidx.compose.ui.res.stringResource(R.string.stop_session))
         }
