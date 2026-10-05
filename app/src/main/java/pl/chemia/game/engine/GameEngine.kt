@@ -15,9 +15,13 @@ class GameEngine(
         maxIntensity: Intensity,
         allowedCategories: Set<Category>,
         favoriteCategories: Set<Category> = emptySet(),
+        directorPlan: DirectorPlan? = null,
     ): GameCard {
+        val directorCeiling = directorPlan?.targetIntensity ?: maxIntensity
+        val effectiveMax = if (directorCeiling.rank <= maxIntensity.rank) directorCeiling else maxIntensity
+
         val allowed = deck.filter {
-            it.intensity.rank <= maxIntensity.rank && it.category in allowedCategories
+            it.intensity.rank <= effectiveMax.rank && it.category in allowedCategories
         }
         require(allowed.isNotEmpty()) { "Brak kart dla wspólnych ustawień zgody" }
 
@@ -31,7 +35,7 @@ class GameEngine(
         }
 
         val weighted = pool.map { card ->
-            card to selectionWeight(card, state, favoriteCategories)
+            card to selectionWeight(card, state, favoriteCategories, directorPlan)
         }
         val totalWeight = weighted.sumOf { it.second }
         var ticket = random.nextInt(totalWeight)
@@ -47,19 +51,29 @@ class GameEngine(
         card: GameCard,
         state: SessionState,
         favoriteCategories: Set<Category>,
+        directorPlan: DirectorPlan? = null,
     ): Int {
-        var weight = 1
+        var weight = 2
         if (state.heat >= 50 && card.intensity.rank >= Intensity.HOT.rank) weight += 2
         if (state.chain > 0 && card.chain) weight += 2
         if (card.category in favoriteCategories) weight += 2
-        return weight
+        if (card.category in directorPlan.orEmptyPreferred()) weight += 5
+        if (card.intensity == directorPlan?.targetIntensity) weight += 3
+
+        val recentCategories = state.recentCategories.takeLast(2)
+        val repeats = recentCategories.count { it == card.category }
+        weight -= repeats.coerceAtMost(2)
+
+        return weight.coerceAtLeast(1)
     }
 
-    fun skip(state: SessionState, cardId: String): SessionState =
+    fun skip(state: SessionState, card: GameCard): SessionState =
         state.copy(
             chain = 0,
-            recentIds = (state.recentIds + cardId).takeLast(8),
-            skippedIds = state.skippedIds + cardId,
+            recentIds = (state.recentIds + card.id).takeLast(8),
+            skippedIds = state.skippedIds + card.id,
+            recentCategories = (state.recentCategories + card.category).takeLast(6),
+            consecutiveSkips = (state.consecutiveSkips + 1).coerceAtMost(9),
             skippedCount = state.skippedCount + 1,
         )
 
@@ -68,6 +82,11 @@ class GameEngine(
             heat = (state.heat + card.heat).coerceAtMost(100),
             chain = (state.chain + 1).coerceAtMost(9),
             recentIds = (state.recentIds + card.id).takeLast(8),
+            recentCategories = (state.recentCategories + card.category).takeLast(6),
+            consecutiveSkips = 0,
             completedCount = state.completedCount + 1,
         )
+
+    private fun DirectorPlan?.orEmptyPreferred(): Set<Category> =
+        this?.preferredCategories ?: emptySet()
 }
