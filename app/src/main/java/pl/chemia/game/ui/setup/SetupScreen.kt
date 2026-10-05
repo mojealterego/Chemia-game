@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pl.chemia.game.R
+import pl.chemia.game.model.SessionStyle
 import pl.chemia.game.ui.common.BrandHeader
 import pl.chemia.game.ui.common.GlassPanel
 import pl.chemia.game.ui.common.PrimaryButton
@@ -30,11 +31,13 @@ fun SetupScreen(
     playerA: String,
     playerB: String,
     durationMinutes: Int,
+    sessionStyle: SessionStyle,
     soundEnabled: Boolean,
     hapticsEnabled: Boolean,
     onPlayerA: (String) -> Unit,
     onPlayerB: (String) -> Unit,
     onDuration: (Int) -> Unit,
+    onSessionStyle: (SessionStyle) -> Unit,
     onSound: (Boolean) -> Unit,
     onHaptics: (Boolean) -> Unit,
     onStart: () -> Unit,
@@ -67,6 +70,24 @@ fun SetupScreen(
                     selected = durationMinutes == minutes,
                     onClick = { onDuration(minutes) },
                     label = { Text(androidx.compose.ui.res.stringResource(R.string.minutes, minutes)) },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            Spacer(Modifier.height(20.dp))
+            Text(
+                androidx.compose.ui.res.stringResource(R.string.session_style),
+                style = MaterialTheme.typography.titleMedium,
+            )
+            SessionStyle.entries.forEach { style ->
+                val label = when (style) {
+                    SessionStyle.CONNECTION -> R.string.style_connection
+                    SessionStyle.CHEMISTRY -> R.string.style_chemistry
+                    SessionStyle.ADVENTURE -> R.string.style_adventure
+                }
+                FilterChip(
+                    selected = sessionStyle == style,
+                    onClick = { onSessionStyle(style) },
+                    label = { Text(androidx.compose.ui.res.stringResource(label)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
