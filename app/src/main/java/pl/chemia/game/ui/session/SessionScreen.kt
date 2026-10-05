@@ -1,7 +1,12 @@
 package pl.chemia.game.ui.session
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -155,7 +160,16 @@ fun SessionScreen(
         }
         Spacer(Modifier.height(14.dp))
 
-        Crossfade(targetState = card, animationSpec = tween(280), label = "card") { shown ->
+        AnimatedContent(
+            targetState = card,
+            transitionSpec = {
+                (fadeIn(tween(320)) + scaleIn(tween(320), initialScale = 0.96f))
+                    .togetherWith(
+                        fadeOut(tween(160)) + scaleOut(tween(160), targetScale = 1.02f)
+                    )
+            },
+            label = "card",
+        ) { shown ->
             if (shown != null) {
                 GameCardPanel(shown, activePlayer)
             }
