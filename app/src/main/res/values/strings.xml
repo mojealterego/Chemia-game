@@ -66,4 +66,10 @@
     <string name="style_adventure">PRZYGODA</string>
     <string name="completion_rate">PŁYNNOŚĆ %1$d%%</string>
     <string name="variety_count">RÓŻNORODNOŚĆ %1$d</string>
+    <string name="mutual_gate_title">DECYZJA OBOJGA</string>
+    <string name="mutual_gate_body">Treść tej karty pozostaje ukryta, dopóki obie osoby niezależnie nie potwierdzą, że chcą ją odsłonić. Każda osoba może zamiast tego pominąć kartę.</string>
+    <string name="confirm_partner_a">PARTNER 1: TAK</string>
+    <string name="confirm_partner_b">PARTNER 2: TAK</string>
+    <string name="confirmed">POTWIERDZONE</string>
+    <string name="content_locked">TREŚĆ ZABLOKOWANA</string>
 </resources>
