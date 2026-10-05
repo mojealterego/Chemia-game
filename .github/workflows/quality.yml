@@ -14,3 +14,6 @@ jobs:
           node-version: 20
       - name: Smoke tests
         run: node tests/test-engine.js
+
+      - name: Validate Android card catalogs
+        run: node tests/validate-card-catalogs.js
