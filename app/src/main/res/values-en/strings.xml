@@ -66,4 +66,10 @@
     <string name="style_adventure">ADVENTURE</string>
     <string name="completion_rate">FLOW %1$d%%</string>
     <string name="variety_count">VARIETY %1$d</string>
+    <string name="mutual_gate_title">BOTH PARTNERS DECIDE</string>
+    <string name="mutual_gate_body">This card stays hidden until both partners independently confirm they want to reveal it. Either person can skip instead.</string>
+    <string name="confirm_partner_a">PARTNER 1: YES</string>
+    <string name="confirm_partner_b">PARTNER 2: YES</string>
+    <string name="confirmed">CONFIRMED</string>
+    <string name="content_locked">CONTENT LOCKED</string>
 </resources>
