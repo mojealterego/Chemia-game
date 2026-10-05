@@ -43,6 +43,7 @@ class SessionSnapshotTest {
                 chain = 3,
                 recentIds = listOf("x", "card-7"),
                 skippedIds = setOf("skip-1"),
+                seenIds = setOf("x", "card-7", "skip-1"),
                 recentCategories = listOf(Category.FLIRT, Category.TOUCH),
                 seenCategories = setOf(Category.FLIRT, Category.TOUCH),
                 consecutiveSkips = 1,
@@ -67,6 +68,7 @@ class SessionSnapshotTest {
         assertEquals("B", restored.playerB)
         assertEquals(61, restored.session.heat)
         assertEquals(8, restored.session.completedCount)
+        assertEquals(setOf("x", "card-7", "skip-1"), restored.session.seenIds)
         assertEquals(SessionStyle.ADVENTURE, restored.sessionStyle)
         assertEquals(SessionPhase.PEAK, restored.directorPhase)
         assertEquals(card, restored.currentCard)
