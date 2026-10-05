@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import pl.chemia.game.SoundCue
 import pl.chemia.game.SoundEngine
+import pl.chemia.game.engine.SessionInsights
 import pl.chemia.game.ui.afterglow.AfterglowScreen
 import pl.chemia.game.ui.age.AgeGateScreen
 import pl.chemia.game.ui.common.PremiumBackground
@@ -141,11 +142,14 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                     )
                 }
                 composable(Route.Afterglow) {
+                    val insights = SessionInsights.from(state.session)
                     AfterglowScreen(
                         card = state.afterglowCard,
                         completedCount = state.session.completedCount,
                         skippedCount = state.session.skippedCount,
                         finalHeat = state.session.heat,
+                        completionRate = insights.completionRate,
+                        varietyCount = insights.varietyCount,
                         onAnother = vm::nextAfterglow,
                         onFinish = {
                             vm.clearSensitiveSession()
