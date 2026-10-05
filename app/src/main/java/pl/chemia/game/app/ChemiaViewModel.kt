@@ -21,6 +21,7 @@ import pl.chemia.game.model.EffectiveConsent
 import pl.chemia.game.model.GameCard
 import pl.chemia.game.model.Intensity
 import pl.chemia.game.model.SessionState
+import pl.chemia.game.model.SessionStyle
 import pl.chemia.game.model.intersectConsent
 import kotlin.random.Random
 
@@ -32,6 +33,7 @@ data class ChemiaUiState(
     val playerA: String = "Partner 1",
     val playerB: String = "Partner 2",
     val durationMinutes: Int = 30,
+    val sessionStyle: SessionStyle = SessionStyle.CHEMISTRY,
     val settings: UserSettings = UserSettings(),
     val session: SessionState = SessionState(),
     val currentCard: GameCard? = null,
@@ -116,6 +118,10 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
 
     fun setDuration(minutes: Int) {
         uiState = uiState.copy(durationMinutes = minutes.coerceIn(15, 60))
+    }
+
+    fun setSessionStyle(style: SessionStyle) {
+        uiState = uiState.copy(sessionStyle = style)
     }
 
     fun setSound(enabled: Boolean) {
@@ -227,7 +233,7 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             state = session,
             maxIntensity = consent.maxIntensity,
             allowedCategories = consent.allowedCategories,
-            favoriteCategories = emptySet(),
+            favoriteCategories = uiState.sessionStyle.preferredCategories,
             directorPlan = plan,
         )
         uiState = uiState.copy(
