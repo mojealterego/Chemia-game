@@ -31,9 +31,31 @@ jobs:
       - name: Build Adult debug APK
         run: gradle :app:assembleAdultDebug --stacktrace
 
+      - name: Verify APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="app/build/outputs/apk/adult/debug/app-adult-debug.apk"
+          BUILD_TOOLS="$ANDROID_HOME/build-tools/36.0.0"
+          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK"
+          unzip -t "$APK" >/dev/null
+          test "$("$BUILD_TOOLS/aapt2" dump packagename "$APK")" = "pl.chemia.game.adult"
+          if "$BUILD_TOOLS/aapt2" dump permissions "$APK" | grep -Eq             'android.permission.(INTERNET|CAMERA|RECORD_AUDIO|READ_EXTERNAL_STORAGE|WRITE_EXTERNAL_STORAGE)'; then
+            echo "Forbidden permission detected" >&2
+            exit 1
+          fi
+          sha256sum "$APK" | tee app/build/outputs/apk/adult/debug/CHEMIA-Adult-SHA256.txt
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: CHEMIA-Adult-APK
           path: app/build/outputs/apk/adult/debug/app-adult-debug.apk
+          if-no-files-found: error
+
+      - name: Upload checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: CHEMIA-Adult-SHA256
+          path: app/build/outputs/apk/adult/debug/CHEMIA-Adult-SHA256.txt
           if-no-files-found: error
