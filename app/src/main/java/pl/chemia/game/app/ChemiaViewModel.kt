@@ -1,11 +1,16 @@
 package pl.chemia.game.app
 
 import android.app.Application
-import android.os.SystemClock
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.chemia.game.BuildConfig
@@ -38,13 +43,16 @@ data class ChemiaUiState(
     val session: SessionState = SessionState(),
     val currentCard: GameCard? = null,
     val currentPlayerIndex: Int = 0,
-    val sessionStartedAtMs: Long? = null,
+    val sessionEndsAtEpochMs: Long? = null,
     val afterglowCard: GameCard? = null,
     val directorPhase: SessionPhase = SessionPhase.WARMUP,
     val directorDeescalated: Boolean = false,
 )
 
-class ChemiaViewModel(application: Application) : AndroidViewModel(application) {
+class ChemiaViewModel(
+    application: Application,
+    private val savedStateHandle: SavedStateHandle,
+) : AndroidViewModel(application) {
     private val cardRepository = CardRepository(application)
     private val settingsRepository = SettingsRepository(application)
     private val engine = GameEngine()
@@ -55,7 +63,10 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
     private val sessionDeck: List<GameCard> = deck.filterNot { it.afterglow || it.category == Category.AFTERGLOW }
     private val afterglowDeck: List<GameCard> = deck.filter { it.afterglow || it.category == Category.AFTERGLOW }
 
-    var uiState by mutableStateOf(ChemiaUiState())
+    var uiState by mutableStateOf(
+        savedStateHandle.get<SessionSnapshot>(SNAPSHOT_KEY)?.restore(deck, UserSettings())
+            ?: ChemiaUiState()
+    )
         private set
 
     val maxSelectableIntensity: Intensity
@@ -75,53 +86,57 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             allowedCategories = Category.entries.filterNot { it == Category.AFTERGLOW }.toSet(),
             maxIntensity = defaultMax,
         )
-        uiState = uiState.copy(
-            consentA = defaultProfile,
-            consentB = defaultProfile,
-            effectiveConsent = intersectConsent(defaultProfile, defaultProfile),
-            consentConflict = false,
-            session = SessionState(),
-            currentCard = null,
-            currentPlayerIndex = 0,
-            sessionStartedAtMs = null,
-            afterglowCard = null,
-            directorPhase = SessionPhase.WARMUP,
-            directorDeescalated = false,
+        commit(
+            uiState.copy(
+                consentA = defaultProfile,
+                consentB = defaultProfile,
+                effectiveConsent = intersectConsent(defaultProfile, defaultProfile),
+                consentConflict = false,
+                session = SessionState(),
+                currentCard = null,
+                currentPlayerIndex = 0,
+                sessionEndsAtEpochMs = null,
+                afterglowCard = null,
+                directorPhase = SessionPhase.WARMUP,
+                directorDeescalated = false,
+            )
         )
     }
 
     fun updateConsentA(profile: ConsentProfile) {
-        uiState = uiState.copy(consentA = profile, consentConflict = false)
+        commit(uiState.copy(consentA = profile, consentConflict = false))
     }
 
     fun updateConsentB(profile: ConsentProfile) {
-        uiState = uiState.copy(consentB = profile, consentConflict = false)
+        commit(uiState.copy(consentB = profile, consentConflict = false))
     }
 
     fun finalizeConsent(): Boolean {
         val effective = intersectConsent(uiState.consentA, uiState.consentB)
         val valid = effective.allowedCategories.isNotEmpty()
-        uiState = uiState.copy(
-            effectiveConsent = effective,
-            consentConflict = !valid,
+        commit(
+            uiState.copy(
+                effectiveConsent = effective,
+                consentConflict = !valid,
+            )
         )
         return valid
     }
 
     fun setPlayerA(value: String) {
-        uiState = uiState.copy(playerA = value.take(24))
+        commit(uiState.copy(playerA = value.take(24)))
     }
 
     fun setPlayerB(value: String) {
-        uiState = uiState.copy(playerB = value.take(24))
+        commit(uiState.copy(playerB = value.take(24)))
     }
 
     fun setDuration(minutes: Int) {
-        uiState = uiState.copy(durationMinutes = minutes.coerceIn(15, 60))
+        commit(uiState.copy(durationMinutes = minutes.coerceIn(15, 60)))
     }
 
     fun setSessionStyle(style: SessionStyle) {
-        uiState = uiState.copy(sessionStyle = style)
+        commit(uiState.copy(sessionStyle = style))
     }
 
     fun setSound(enabled: Boolean) {
@@ -134,13 +149,15 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch { settingsRepository.setHaptics(enabled) }
     }
 
-    fun startSession() {
+    fun startSession(nowEpochMs: Long = System.currentTimeMillis()) {
         val clean = SessionState()
-        uiState = uiState.copy(
-            session = clean,
-            currentPlayerIndex = 0,
-            sessionStartedAtMs = SystemClock.elapsedRealtime(),
-            afterglowCard = null,
+        commit(
+            uiState.copy(
+                session = clean,
+                currentPlayerIndex = 0,
+                sessionEndsAtEpochMs = nowEpochMs + uiState.durationMinutes * 60_000L,
+                afterglowCard = null,
+            )
         )
         drawNext(clean)
     }
@@ -148,9 +165,11 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
     fun skipCurrent() {
         val current = uiState.currentCard ?: return
         val updated = engine.skip(uiState.session, current)
-        uiState = uiState.copy(
-            session = updated,
-            currentPlayerIndex = 1 - uiState.currentPlayerIndex,
+        commit(
+            uiState.copy(
+                session = updated,
+                currentPlayerIndex = 1 - uiState.currentPlayerIndex,
+            )
         )
         drawNext(updated)
     }
@@ -159,9 +178,11 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
         val current = uiState.currentCard ?: return false
         val updated = engine.complete(uiState.session, current)
         val reachedAfterglow = updated.heat >= 100
-        uiState = uiState.copy(
-            session = updated,
-            currentPlayerIndex = 1 - uiState.currentPlayerIndex,
+        commit(
+            uiState.copy(
+                session = updated,
+                currentPlayerIndex = 1 - uiState.currentPlayerIndex,
+            )
         )
         if (!reachedAfterglow) {
             drawNext(updated)
@@ -170,32 +191,35 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun reviewConsent() {
-        uiState = uiState.copy(
-            effectiveConsent = intersectConsent(
-                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
-                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
-            ),
-            consentConflict = false,
-            session = SessionState(),
-            currentCard = null,
-            currentPlayerIndex = 0,
-            sessionStartedAtMs = null,
-            afterglowCard = null,
-            directorPhase = SessionPhase.WARMUP,
-            directorDeescalated = false,
+        commit(
+            uiState.copy(
+                effectiveConsent = intersectConsent(
+                    ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+                    ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+                ),
+                consentConflict = false,
+                session = SessionState(),
+                currentCard = null,
+                currentPlayerIndex = 0,
+                sessionEndsAtEpochMs = null,
+                afterglowCard = null,
+                directorPhase = SessionPhase.WARMUP,
+                directorDeescalated = false,
+            )
         )
     }
 
     fun nextAfterglow() {
-        uiState = uiState.copy(
-            afterglowCard = if (afterglowDeck.isEmpty()) null else afterglowDeck[random.nextInt(afterglowDeck.size)]
+        commit(
+            uiState.copy(
+                afterglowCard = if (afterglowDeck.isEmpty()) null else afterglowDeck[random.nextInt(afterglowDeck.size)]
+            )
         )
     }
 
-    fun remainingSeconds(nowElapsedMs: Long = SystemClock.elapsedRealtime()): Long {
-        val started = uiState.sessionStartedAtMs ?: return uiState.durationMinutes * 60L
-        val elapsed = ((nowElapsedMs - started) / 1000L).coerceAtLeast(0L)
-        return (uiState.durationMinutes * 60L - elapsed).coerceAtLeast(0L)
+    fun remainingSeconds(nowEpochMs: Long = System.currentTimeMillis()): Long {
+        val endsAt = uiState.sessionEndsAtEpochMs ?: return uiState.durationMinutes * 60L
+        return ((endsAt - nowEpochMs + 999L) / 1000L).coerceAtLeast(0L)
     }
 
     fun clearSensitiveSession() {
@@ -212,11 +236,12 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             session = SessionState(),
             currentCard = null,
             currentPlayerIndex = 0,
-            sessionStartedAtMs = null,
+            sessionEndsAtEpochMs = null,
             afterglowCard = null,
             directorPhase = SessionPhase.WARMUP,
             directorDeescalated = false,
         )
+        savedStateHandle.remove<SessionSnapshot>(SNAPSHOT_KEY)
     }
 
     private fun drawNext(session: SessionState) {
@@ -236,10 +261,31 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             favoriteCategories = uiState.sessionStyle.preferredCategories,
             directorPlan = plan,
         )
-        uiState = uiState.copy(
-            currentCard = card,
-            directorPhase = plan.phase,
-            directorDeescalated = plan.deescalated,
+        commit(
+            uiState.copy(
+                currentCard = card,
+                directorPhase = plan.phase,
+                directorDeescalated = plan.deescalated,
+            )
         )
+    }
+
+    private fun commit(state: ChemiaUiState) {
+        uiState = state
+        savedStateHandle[SNAPSHOT_KEY] = SessionSnapshot.from(state)
+    }
+
+    companion object {
+        private const val SNAPSHOT_KEY = "chemia_session_snapshot"
+
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = checkNotNull(this[APPLICATION_KEY])
+                ChemiaViewModel(
+                    application = application,
+                    savedStateHandle = createSavedStateHandle(),
+                )
+            }
+        }
     }
 }
