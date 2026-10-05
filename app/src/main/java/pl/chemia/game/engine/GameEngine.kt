@@ -26,10 +26,12 @@ class GameEngine(
         require(allowed.isNotEmpty()) { "Brak kart dla wspólnych ustawień zgody" }
 
         val recent = state.recentIds.takeLast(8).toSet()
-        val preferred = allowed.filterNot { it.id in recent || it.id in state.skippedIds }
+        val unseen = allowed.filterNot { it.id in state.seenIds }
+        val unseenPreferred = unseen.filterNot { it.id in recent || it.id in state.skippedIds }
         val nonSkipped = allowed.filterNot { it.id in state.skippedIds }
         val pool = when {
-            preferred.isNotEmpty() -> preferred
+            unseenPreferred.isNotEmpty() -> unseenPreferred
+            unseen.isNotEmpty() -> unseen
             nonSkipped.isNotEmpty() -> nonSkipped
             else -> allowed
         }
@@ -72,6 +74,7 @@ class GameEngine(
             chain = 0,
             recentIds = (state.recentIds + card.id).takeLast(8),
             skippedIds = state.skippedIds + card.id,
+            seenIds = state.seenIds + card.id,
             recentCategories = (state.recentCategories + card.category).takeLast(6),
             seenCategories = state.seenCategories + card.category,
             consecutiveSkips = (state.consecutiveSkips + 1).coerceAtMost(9),
@@ -83,6 +86,7 @@ class GameEngine(
             heat = (state.heat + card.heat).coerceAtMost(100),
             chain = (state.chain + 1).coerceAtMost(9),
             recentIds = (state.recentIds + card.id).takeLast(8),
+            seenIds = state.seenIds + card.id,
             recentCategories = (state.recentCategories + card.category).takeLast(6),
             seenCategories = state.seenCategories + card.category,
             consecutiveSkips = 0,

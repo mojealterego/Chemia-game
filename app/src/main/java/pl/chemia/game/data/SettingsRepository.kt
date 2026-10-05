@@ -12,18 +12,21 @@ private val Context.settingsDataStore by preferencesDataStore(name = "chemia_set
 data class UserSettings(
     val soundEnabled: Boolean = true,
     val hapticsEnabled: Boolean = true,
+    val reducedMotion: Boolean = false,
 )
 
 class SettingsRepository(private val context: Context) {
     private object Keys {
         val sound = booleanPreferencesKey("sound_enabled")
         val haptics = booleanPreferencesKey("haptics_enabled")
+        val reducedMotion = booleanPreferencesKey("reduced_motion")
     }
 
     val settings: Flow<UserSettings> = context.settingsDataStore.data.map { prefs ->
         UserSettings(
             soundEnabled = prefs[Keys.sound] ?: true,
             hapticsEnabled = prefs[Keys.haptics] ?: true,
+            reducedMotion = prefs[Keys.reducedMotion] ?: false,
         )
     }
 
@@ -33,5 +36,9 @@ class SettingsRepository(private val context: Context) {
 
     suspend fun setHaptics(enabled: Boolean) {
         context.settingsDataStore.edit { it[Keys.haptics] = enabled }
+    }
+
+    suspend fun setReducedMotion(enabled: Boolean) {
+        context.settingsDataStore.edit { it[Keys.reducedMotion] = enabled }
     }
 }

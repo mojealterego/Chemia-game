@@ -31,12 +31,12 @@ private object Route {
 }
 
 @Composable
-fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
+fun ChemiaApp(vm: ChemiaViewModel = viewModel(factory = ChemiaViewModel.Factory)) {
     val navController = rememberNavController()
     val state = vm.uiState
 
     ChemiaTheme(darkTheme = true) {
-        PremiumBackground {
+        PremiumBackground(reducedMotion = state.settings.reducedMotion) {
             NavHost(navController = navController, startDestination = Route.Age) {
                 composable(Route.Age) {
                     AgeGateScreen(
@@ -91,12 +91,14 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                         sessionStyle = state.sessionStyle,
                         soundEnabled = state.settings.soundEnabled,
                         hapticsEnabled = state.settings.hapticsEnabled,
+                        reducedMotion = state.settings.reducedMotion,
                         onPlayerA = vm::setPlayerA,
                         onPlayerB = vm::setPlayerB,
                         onDuration = vm::setDuration,
                         onSessionStyle = vm::setSessionStyle,
                         onSound = vm::setSound,
                         onHaptics = vm::setHaptics,
+                        onReducedMotion = vm::setReducedMotion,
                         onStart = {
                             vm.startSession()
                             if (state.settings.soundEnabled) SoundEngine.play(SoundCue.START)
@@ -119,6 +121,7 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                         directorDeescalated = state.directorDeescalated,
                         soundEnabled = state.settings.soundEnabled,
                         hapticsEnabled = state.settings.hapticsEnabled,
+                        reducedMotion = state.settings.reducedMotion,
                         remainingSecondsProvider = vm::remainingSeconds,
                         onSkip = vm::skipCurrent,
                         onDone = vm::completeCurrent,

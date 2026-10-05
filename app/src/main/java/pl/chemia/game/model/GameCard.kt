@@ -46,6 +46,7 @@ data class SessionState(
     val chain: Int = 0,
     val recentIds: List<String> = emptyList(),
     val skippedIds: Set<String> = emptySet(),
+    val seenIds: Set<String> = emptySet(),
     val recentCategories: List<Category> = emptyList(),
     val seenCategories: Set<Category> = emptySet(),
     val consecutiveSkips: Int = 0,
