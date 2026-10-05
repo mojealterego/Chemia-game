@@ -1,0 +1,514 @@
+[
+  {
+    "id": "h01",
+    "category": "KISS",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Minuta pocałunków",
+    "text": "Jeśli oboje chcecie, całujcie się przez minutę bez używania telefonu.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h02",
+    "category": "TOUCH",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Masaż pleców",
+    "text": "Zrób partnerowi dwuminutowy, powolny masaż pleców przez ubranie lub bez niego — tylko w granicach, które oboje akceptujecie.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h03",
+    "category": "QUESTION",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Najodważniejsza fantazja",
+    "text": "Opowiedz o jednej fantazji, o której możesz mówić komfortowo. Partner tylko słucha, bez oceniania.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h04",
+    "category": "ROLEPLAY",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Zakaz znajomości",
+    "text": "Przez dwie minuty nie używajcie swoich imion i udawajcie, że właśnie się poznaliście.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h05",
+    "category": "FLIRT",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Szept do ucha",
+    "text": "Powiedz partnerowi do ucha, co najbardziej chciałbyś, żeby zrobił później — bez presji na realizację.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h06",
+    "category": "TOUCH",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Mapa dotyku",
+    "text": "Partner wskazuje trzy miejsca na ciele, gdzie lubi dotyk. Wybierz jedno z nich na 30 sekund.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h07",
+    "category": "KISS",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Powolnie",
+    "text": "Pocałuj partnera tak wolno, jak potrafisz, i zatrzymaj się, gdy tylko on tego chce.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h08",
+    "category": "QUESTION",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Tak / może / nie",
+    "text": "Wymieńcie po jednej rzeczy z kategorii: tak, może kiedyś, zdecydowanie nie.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h09",
+    "category": "ROLEPLAY",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Osoba publiczna",
+    "text": "Jedno z Was udaje osobę bardzo pewną siebie, drugie próbuje ją poderwać.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h10",
+    "category": "FLIRT",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Bez dotyku",
+    "text": "Przez minutę buduj napięcie wyłącznie słowami i spojrzeniem — bez dotykania.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h11",
+    "category": "TOUCH",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Partner prowadzi",
+    "text": "Partner mówi: wolniej, szybciej, stop albo dalej podczas masażu karku, ramion lub pleców.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h12",
+    "category": "QUESTION",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Co Cię zaskoczyło?",
+    "text": "Powiedz, co w partnerze okazało się bardziej pociągające z czasem niż na początku.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h13",
+    "category": "KISS",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Seria",
+    "text": "Partner wybiera trzy miejsca: policzek, szyja, czoło, usta. Pocałuj je w wybranej kolejności.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h14",
+    "category": "ROLEPLAY",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Spóźniona randka",
+    "text": "Jedna osoba czekała na randkę. Druga właśnie przyszła i musi ją przekonać, żeby została.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h15",
+    "category": "FLIRT",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Prawie bez słów",
+    "text": "Możesz użyć tylko pięciu słów, żeby powiedzieć partnerowi, czego dziś chcesz.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h16",
+    "category": "TOUCH",
+    "intensity": 3,
+    "heat": 9,
+    "title": "60 sekund",
+    "text": "Przez 60 sekund jedna osoba wybiera tempo czułego dotyku, druga może w każdej chwili powiedzieć stop.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h17",
+    "category": "QUESTION",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Co chciałbyś usłyszeć?",
+    "text": "Powiedz jedno zdanie, które szczególnie lubisz słyszeć od partnera w intymnym momencie.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h18",
+    "category": "KISS",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Przerwana scena",
+    "text": "Zacznijcie się całować, zatrzymajcie po 20 sekundach i każde mówi, czy chce kontynuować.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h19",
+    "category": "ROLEPLAY",
+    "intensity": 3,
+    "heat": 9,
+    "title": "Tajemnica",
+    "text": "Jedno z Was zna sekret. Drugie ma minutę, żeby go wydobyć wyłącznie flirtem.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "h20",
+    "category": "QUESTION",
+    "intensity": 3,
+    "heat": 8,
+    "title": "Granica",
+    "text": "Powiedz jedną granicę, która daje Ci większe poczucie bezpieczeństwa i przez to pozwala bardziej się otworzyć.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x01",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Bez filtra",
+    "text": "Powiedz partnerowi jedną odważną rzecz, której pragniesz, ale wcześniej nie umiałeś powiedzieć wprost.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x02",
+    "category": "ROLEPLAY",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Pełna scena",
+    "text": "Wymyślcie role, miejsce i jeden zakaz. Zagrajcie scenę przez trzy minuty, zatrzymując ją natychmiast na każde „stop”.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x03",
+    "category": "TOUCH",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Zasłonięte oczy",
+    "text": "Jeśli oboje chcecie, jedna osoba zamyka oczy, druga prowadzi powolny dotyk wyłącznie w wcześniej uzgodnionych miejscach.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x04",
+    "category": "KISS",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Bez pośpiechu",
+    "text": "Jeśli oboje chcecie, poświęćcie dwie minuty wyłącznie na pocałunki i bliskość.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x05",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Najmocniejsze napięcie",
+    "text": "Opowiedz o sytuacji między Wami, kiedy pożądanie było najsilniejsze.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x06",
+    "category": "FLIRT",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Rozkaz i wybór",
+    "text": "Daj partnerowi dwa odważne, ale zgodne z Waszymi granicami wybory. To on decyduje, czy wybiera któryś z nich.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x07",
+    "category": "ROLEPLAY",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Pierwszy raz",
+    "text": "Zagrajcie, że to Wasze pierwsze spotkanie i oboje bardzo chcecie zrobić na sobie wrażenie.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x08",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Lista TAK",
+    "text": "Każde z Was podaje po dwie rzeczy, na które dziś zdecydowanie ma ochotę.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x09",
+    "category": "TOUCH",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Prowadzenie dłoni",
+    "text": "Jedna osoba prowadzi dłoń partnera do miejsca, gdzie chce czułości. Druga podąża tylko za tym prowadzeniem.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x10",
+    "category": "KISS",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Stop-klatka",
+    "text": "Pocałujcie się, a jedna osoba w dowolnym momencie mówi „stop”. Zatrzymajcie się natychmiast i zamieńcie role.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x11",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Jedno pragnienie",
+    "text": "Powiedz jedno konkretne pragnienie na dzisiejszy wieczór. Odpowiedź partnera może brzmieć: tak, może albo nie.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x12",
+    "category": "ROLEPLAY",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Władza oddana dobrowolnie",
+    "text": "Jedna osoba prowadzi kolejną minutę flirtu i bliskości, ale każda instrukcja wymaga wyraźnego „tak”.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x13",
+    "category": "FLIRT",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Słowa zamiast dotyku",
+    "text": "Powiedz partnerowi dokładnie, co w nim najbardziej Cię dziś pociąga. Nie dotykaj go przez minutę.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x14",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Nowa rzecz",
+    "text": "Wymień jedną nową rzecz, którą kiedyś chcielibyście wspólnie sprawdzić, bez zobowiązania do robienia jej dziś.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x15",
+    "category": "TOUCH",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Masaż z instrukcją",
+    "text": "Partner wybiera obszar masażu i wydaje tylko cztery komendy: wolniej, szybciej, mocniej, stop.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x16",
+    "category": "KISS",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Partner decyduje",
+    "text": "Partner decyduje, gdzie i jak długo chce być całowany. Ty wykonujesz tylko to, na co wyraźnie się zgodzi.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x17",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Co jest najbardziej sexy?",
+    "text": "Powiedz jedną cechę zachowania partnera, która działa na Ciebie najmocniej.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x18",
+    "category": "ROLEPLAY",
+    "intensity": 4,
+    "heat": 12,
+    "title": "Po zamknięciu",
+    "text": "Zagrajcie scenę, w której zostaliście sami po zamknięciu lokalu. Resztę historii tworzycie razem.",
+    "tags": [],
+    "chain": true,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x19",
+    "category": "CONNECTION",
+    "intensity": 4,
+    "heat": 10,
+    "title": "Po wszystkim",
+    "text": "Powiedz, czego potrzebujesz po intensywnym momencie: przytulenia, rozmowy, ciszy, wody czy przestrzeni.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "x20",
+    "category": "QUESTION",
+    "intensity": 4,
+    "heat": 11,
+    "title": "Ostatnia karta",
+    "text": "Każde z Was mówi jedną rzecz, którą chce kontynuować, i jedną, którą chce zakończyć na dziś.",
+    "tags": [],
+    "chain": false,
+    "requiresMutualYes": true
+  },
+  {
+    "id": "ag01",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Oddech",
+    "text": "Usiądźcie blisko i weźcie razem trzy spokojne oddechy. Powiedzcie, czy czujecie się komfortowo.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag02",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Co było najlepsze?",
+    "text": "Każde z Was mówi jedną rzecz z sesji, którą chce zapamiętać.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag03",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Czego potrzebujesz?",
+    "text": "Wybierz: przytulenia, rozmowy, ciszy, wody albo chwili przestrzeni.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag04",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Docenienie",
+    "text": "Powiedz partnerowi jedną rzecz, za którą doceniasz jego uważność podczas gry.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag05",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Granice",
+    "text": "Powiedzcie, czy któraś granica z dzisiejszej sesji powinna zostać zapamiętana na przyszłość.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag06",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Domknięcie",
+    "text": "Zdecydujcie wspólnie: jeszcze chwila bliskości czy koniec gry na dziś.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  }
+]

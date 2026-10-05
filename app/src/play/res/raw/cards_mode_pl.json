@@ -1,0 +1,206 @@
+[
+  {
+    "id": "pl01",
+    "category": "CONNECTION",
+    "intensity": 1,
+    "heat": 3,
+    "title": "Mały gest",
+    "text": "Powiedz, jaki drobny gest partnera sprawia, że czujesz się zauważony.",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "pl02",
+    "category": "QUESTION",
+    "intensity": 1,
+    "heat": 3,
+    "title": "Idealny wieczór",
+    "text": "Opisz prosty wspólny wieczór, który naprawdę poprawiłby Ci nastrój.",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "pl03",
+    "category": "FLIRT",
+    "intensity": 1,
+    "heat": 4,
+    "title": "Pierwsze wrażenie",
+    "text": "Powiedz, co dziś zwróciło Twoją uwagę w partnerze jako pierwsze.",
+    "tags": [
+      "flirt"
+    ]
+  },
+  {
+    "id": "pl04",
+    "category": "CONNECTION",
+    "intensity": 1,
+    "heat": 3,
+    "title": "Wdzięczność",
+    "text": "Podziękuj partnerowi za jedną konkretną rzecz z ostatniego tygodnia.",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "pl05",
+    "category": "QUESTION",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Więcej tego",
+    "text": "Powiedz, czego chcesz mieć więcej w Waszej codzienności: rozmowy, humoru, czasu czy spontaniczności.",
+    "tags": [
+      "communication"
+    ]
+  },
+  {
+    "id": "pl06",
+    "category": "TOUCH",
+    "intensity": 1,
+    "heat": 4,
+    "title": "Dłonie",
+    "text": "Przytrzymaj dłoń partnera przez trzydzieści sekund i skup się tylko na tej chwili.",
+    "tags": [
+      "connection"
+    ]
+  },
+  {
+    "id": "pl07",
+    "category": "FLIRT",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Sekretna randka",
+    "text": "Wymyśl w jednym zdaniu miejsce na randkę, o której nikt inny nie musi wiedzieć.",
+    "tags": [
+      "flirt"
+    ]
+  },
+  {
+    "id": "pl08",
+    "category": "QUESTION",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Co Cię rozśmiesza?",
+    "text": "Powiedz, jaka cecha partnera najczęściej wywołuje u Ciebie uśmiech.",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "pl09",
+    "category": "CONNECTION",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Wspólny plan",
+    "text": "Wymyślcie jedną małą rzecz, którą zrobicie razem w ciągu najbliższych siedmiu dni.",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "pl10",
+    "category": "FLIRT",
+    "intensity": 2,
+    "heat": 6,
+    "title": "Komplement premium",
+    "text": "Powiedz komplement dotyczący nie wyglądu, lecz sposobu bycia partnera.",
+    "tags": [
+      "flirt"
+    ]
+  },
+  {
+    "id": "pl11",
+    "category": "QUESTION",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Tempo",
+    "text": "Powiedz, kiedy czujesz największą bliskość: podczas rozmowy, wspólnego działania czy odpoczynku.",
+    "tags": [
+      "communication"
+    ]
+  },
+  {
+    "id": "pl12",
+    "category": "CONNECTION",
+    "intensity": 2,
+    "heat": 5,
+    "title": "Jedno zdanie",
+    "text": "Dokończ zdanie: Lubię nas najbardziej wtedy, kiedy…",
+    "tags": [
+      "relationship"
+    ]
+  },
+  {
+    "id": "ag01",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Oddech",
+    "text": "Usiądźcie blisko i weźcie razem trzy spokojne oddechy. Powiedzcie, czy czujecie się komfortowo.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag02",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Co było najlepsze?",
+    "text": "Każde z Was mówi jedną rzecz z sesji, którą chce zapamiętać.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag03",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Czego potrzebujesz?",
+    "text": "Wybierz: przytulenia, rozmowy, ciszy, wody albo chwili przestrzeni.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag04",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Docenienie",
+    "text": "Powiedz partnerowi jedną rzecz, za którą doceniasz jego uważność podczas gry.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag05",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Granice",
+    "text": "Powiedzcie, czy któraś granica z dzisiejszej sesji powinna zostać zapamiętana na przyszłość.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  },
+  {
+    "id": "ag06",
+    "category": "AFTERGLOW",
+    "intensity": 1,
+    "heat": 0,
+    "title": "Domknięcie",
+    "text": "Zdecydujcie wspólnie: jeszcze chwila bliskości czy koniec gry na dziś.",
+    "tags": [
+      "afterglow"
+    ],
+    "afterglow": true
+  }
+]

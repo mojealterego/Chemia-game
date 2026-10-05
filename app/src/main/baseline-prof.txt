@@ -1,0 +1,6 @@
+Lpl/chemia/game/MainActivity;
+HSPLpl/chemia/game/MainActivity;->**(**)**
+HSPLpl/chemia/game/app/**->**(**)**
+HPLpl/chemia/game/engine/**->**(**)**
+HPLpl/chemia/game/data/**->**(**)**
+HPLpl/chemia/game/ui/**->**(**)**
