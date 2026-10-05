@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -212,7 +213,10 @@ fun SessionScreen(
             }
         }
         Spacer(Modifier.height(10.dp))
-        OutlinedButton(onClick = onReviewConsent, modifier = Modifier.fillMaxWidth()) {
+        OutlinedButton(
+            onClick = onReviewConsent,
+            modifier = Modifier.fillMaxWidth().testTag("session_review_consent"),
+        ) {
             Text(androidx.compose.ui.res.stringResource(R.string.review_consent))
         }
         Spacer(Modifier.height(8.dp))
