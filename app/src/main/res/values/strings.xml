@@ -60,4 +60,8 @@
     <string name="phase_peak">SZCZYT</string>
     <string name="phase_cooldown">WYCISZENIE</string>
     <string name="director_softening">Tempo złagodzone po pominięciach</string>
-    <string name="review_consent">ZMIEŃ GRANICE</string>\n</resources>
+    <string name="review_consent">ZMIEŃ GRANICE</string>\n    <string name="session_style">Styl sesji</string>
+    <string name="style_connection">BLISKOŚĆ</string>
+    <string name="style_chemistry">CHEMIA</string>
+    <string name="style_adventure">PRZYGODA</string>
+</resources>
