@@ -53,6 +53,7 @@ import kotlinx.coroutines.delay
 import pl.chemia.game.R
 import pl.chemia.game.SoundCue
 import pl.chemia.game.SoundEngine
+import pl.chemia.game.engine.MutualRevealGate
 import pl.chemia.game.engine.SessionPhase
 import pl.chemia.game.model.GameCard
 import pl.chemia.game.ui.common.BrandHeader
@@ -88,6 +89,14 @@ fun SessionScreen(
     val haptic = LocalHapticFeedback.current
     var discreet by remember { mutableStateOf(false) }
     var remaining by remember { mutableLongStateOf(remainingSecondsProvider()) }
+    var revealGate by remember(card?.id, card?.requiresMutualYes) {
+        mutableStateOf(
+            card?.let {
+                if (it.requiresMutualYes) MutualRevealGate.required(it.id)
+                else MutualRevealGate.notRequired(it.id)
+            } ?: MutualRevealGate.notRequired("")
+        )
+    }
     val phaseLabel = androidx.compose.ui.res.stringResource(
         when (phase) {
             SessionPhase.WARMUP -> R.string.phase_warmup
@@ -170,7 +179,7 @@ fun SessionScreen(
         Spacer(Modifier.height(14.dp))
 
         AnimatedContent(
-            targetState = card,
+            targetState = card to revealGate.canReveal,
             transitionSpec = {
                 (fadeIn(tween(320)) + scaleIn(tween(320), initialScale = 0.96f))
                     .togetherWith(
@@ -178,9 +187,18 @@ fun SessionScreen(
                     )
             },
             label = "card",
-        ) { shown ->
+        ) { (shown, canReveal) ->
             if (shown != null) {
-                GameCardPanel(shown, activePlayer)
+                if (canReveal) {
+                    GameCardPanel(shown, activePlayer)
+                } else {
+                    MutualRevealPanel(
+                        card = shown,
+                        gate = revealGate,
+                        onConfirmA = { revealGate = revealGate.confirmPartnerA() },
+                        onConfirmB = { revealGate = revealGate.confirmPartnerB() },
+                    )
+                }
             }
         }
 
@@ -206,6 +224,7 @@ fun SessionScreen(
                         onAfterglow()
                     }
                 },
+                enabled = card != null && revealGate.canReveal,
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = Rose),
             ) {
@@ -228,10 +247,82 @@ fun SessionScreen(
 }
 
 @Composable
+private fun MutualRevealPanel(
+    card: GameCard,
+    gate: MutualRevealGate,
+    onConfirmA: () -> Unit,
+    onConfirmB: () -> Unit,
+) {
+    val accent = intensityColor(card.intensity)
+    Card(
+        modifier = Modifier.fillMaxWidth().testTag("mutual_locked"),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f)),
+        border = BorderStroke(1.dp, Gold.copy(alpha = 0.7f)),
+    ) {
+        Column(Modifier.padding(24.dp)) {
+            Row {
+                PremiumChip(categoryLabel(card.category), accent)
+                Spacer(Modifier.width(8.dp))
+                PremiumChip(intensityLabel(card.intensity), Gold)
+            }
+            Spacer(Modifier.height(20.dp))
+            Text(
+                androidx.compose.ui.res.stringResource(R.string.content_locked),
+                color = Gold,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                androidx.compose.ui.res.stringResource(R.string.mutual_gate_title),
+                color = Ivory,
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                androidx.compose.ui.res.stringResource(R.string.mutual_gate_body),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(20.dp))
+            OutlinedButton(
+                onClick = onConfirmA,
+                enabled = !gate.partnerAConfirmed,
+                modifier = Modifier.fillMaxWidth().testTag("mutual_confirm_a"),
+            ) {
+                Text(
+                    androidx.compose.ui.res.stringResource(
+                        if (gate.partnerAConfirmed) R.string.confirmed else R.string.confirm_partner_a
+                    )
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedButton(
+                onClick = onConfirmB,
+                enabled = !gate.partnerBConfirmed,
+                modifier = Modifier.fillMaxWidth().testTag("mutual_confirm_b"),
+            ) {
+                Text(
+                    androidx.compose.ui.res.stringResource(
+                        if (gate.partnerBConfirmed) R.string.confirmed else R.string.confirm_partner_b
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun GameCardPanel(card: GameCard, activePlayer: String) {
     val accent = intensityColor(card.intensity)
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().testTag("card_content"),
         shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.94f)),
         border = BorderStroke(1.dp, accent.copy(alpha = 0.62f)),
