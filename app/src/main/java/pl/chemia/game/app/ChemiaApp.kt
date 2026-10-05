@@ -121,6 +121,7 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel(factory = ChemiaViewModel.Factory)
                         directorDeescalated = state.directorDeescalated,
                         soundEnabled = state.settings.soundEnabled,
                         hapticsEnabled = state.settings.hapticsEnabled,
+                        reducedMotion = state.settings.reducedMotion,
                         remainingSecondsProvider = vm::remainingSeconds,
                         onSkip = vm::skipCurrent,
                         onDone = vm::completeCurrent,
