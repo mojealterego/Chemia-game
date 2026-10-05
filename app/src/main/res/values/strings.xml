@@ -55,4 +55,9 @@
     <string name="completed_cards">Wykonane: %1$d</string>
     <string name="skipped_cards">Pominięte: %1$d</string>
     <string name="final_heat">HEAT: %1$d</string>
+    <string name="phase_warmup">ROZGRZEWKA</string>
+    <string name="phase_build">BUDOWANIE</string>
+    <string name="phase_peak">SZCZYT</string>
+    <string name="phase_cooldown">WYCISZENIE</string>
+    <string name="director_softening">Tempo złagodzone po pominięciach</string>
 </resources>
