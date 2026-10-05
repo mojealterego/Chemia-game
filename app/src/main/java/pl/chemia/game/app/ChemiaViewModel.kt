@@ -13,6 +13,8 @@ import pl.chemia.game.data.CardRepository
 import pl.chemia.game.data.SettingsRepository
 import pl.chemia.game.data.UserSettings
 import pl.chemia.game.engine.GameEngine
+import pl.chemia.game.engine.SessionDirector
+import pl.chemia.game.engine.SessionPhase
 import pl.chemia.game.model.Category
 import pl.chemia.game.model.ConsentProfile
 import pl.chemia.game.model.EffectiveConsent
@@ -36,12 +38,15 @@ data class ChemiaUiState(
     val currentPlayerIndex: Int = 0,
     val sessionStartedAtMs: Long? = null,
     val afterglowCard: GameCard? = null,
+    val directorPhase: SessionPhase = SessionPhase.WARMUP,
+    val directorDeescalated: Boolean = false,
 )
 
 class ChemiaViewModel(application: Application) : AndroidViewModel(application) {
     private val cardRepository = CardRepository(application)
     private val settingsRepository = SettingsRepository(application)
     private val engine = GameEngine()
+    private val director = SessionDirector()
     private val random = Random.Default
 
     private val deck: List<GameCard> = cardRepository.load()
@@ -78,6 +83,8 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             currentPlayerIndex = 0,
             sessionStartedAtMs = null,
             afterglowCard = null,
+            directorPhase = SessionPhase.WARMUP,
+            directorDeescalated = false,
         )
     }
 
@@ -134,7 +141,7 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
 
     fun skipCurrent() {
         val current = uiState.currentCard ?: return
-        val updated = engine.skip(uiState.session, current.id)
+        val updated = engine.skip(uiState.session, current)
         uiState = uiState.copy(
             session = updated,
             currentPlayerIndex = 1 - uiState.currentPlayerIndex,
@@ -184,18 +191,32 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
             currentPlayerIndex = 0,
             sessionStartedAtMs = null,
             afterglowCard = null,
+            directorPhase = SessionPhase.WARMUP,
+            directorDeescalated = false,
         )
     }
 
     private fun drawNext(session: SessionState) {
         val consent = uiState.effectiveConsent
+        val durationSeconds = (uiState.durationMinutes * 60L).coerceAtLeast(1L)
+        val progress = 1f - (remainingSeconds().toFloat() / durationSeconds.toFloat())
+        val plan = director.plan(
+            session = session,
+            progress = progress,
+            consent = consent,
+        )
         val card = engine.next(
             deck = sessionDeck,
             state = session,
             maxIntensity = consent.maxIntensity,
             allowedCategories = consent.allowedCategories,
             favoriteCategories = emptySet(),
+            directorPlan = plan,
         )
-        uiState = uiState.copy(currentCard = card)
+        uiState = uiState.copy(
+            currentCard = card,
+            directorPhase = plan.phase,
+            directorDeescalated = plan.deescalated,
+        )
     }
 }
