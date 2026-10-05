@@ -11,14 +11,14 @@ val ChemiaTypography = Typography(
         fontFamily = FontFamily.Serif,
         fontSize = 40.sp,
         lineHeight = 44.sp,
-        letterSpacing = (-0.6).sp,
+        letterSpacing = (-0.6f).sp,
         fontWeight = FontWeight.Bold,
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Serif,
         fontSize = 30.sp,
         lineHeight = 35.sp,
-        letterSpacing = (-0.25).sp,
+        letterSpacing = (-0.25f).sp,
         fontWeight = FontWeight.Bold,
     ),
     titleLarge = TextStyle(
@@ -31,7 +31,7 @@ val ChemiaTypography = Typography(
         fontFamily = FontFamily.SansSerif,
         fontSize = 17.sp,
         lineHeight = 22.sp,
-        letterSpacing = 0.15.sp,
+        letterSpacing = 0.15f.sp,
         fontWeight = FontWeight.SemiBold,
     ),
     bodyLarge = TextStyle(
@@ -48,7 +48,7 @@ val ChemiaTypography = Typography(
         fontFamily = FontFamily.SansSerif,
         fontSize = 14.sp,
         lineHeight = 18.sp,
-        letterSpacing = 0.8.sp,
+        letterSpacing = 0.8f.sp,
         fontWeight = FontWeight.Bold,
     ),
 )
