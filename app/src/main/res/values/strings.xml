@@ -64,4 +64,6 @@
     <string name="style_connection">BLISKOŚĆ</string>
     <string name="style_chemistry">CHEMIA</string>
     <string name="style_adventure">PRZYGODA</string>
+    <string name="completion_rate">PŁYNNOŚĆ %1$d%%</string>
+    <string name="variety_count">RÓŻNORODNOŚĆ %1$d</string>
 </resources>
