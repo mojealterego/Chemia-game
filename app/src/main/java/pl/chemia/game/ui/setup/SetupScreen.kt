@@ -34,12 +34,14 @@ fun SetupScreen(
     sessionStyle: SessionStyle,
     soundEnabled: Boolean,
     hapticsEnabled: Boolean,
+    reducedMotion: Boolean,
     onPlayerA: (String) -> Unit,
     onPlayerB: (String) -> Unit,
     onDuration: (Int) -> Unit,
     onSessionStyle: (SessionStyle) -> Unit,
     onSound: (Boolean) -> Unit,
     onHaptics: (Boolean) -> Unit,
+    onReducedMotion: (Boolean) -> Unit,
     onStart: () -> Unit,
 ) {
     Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(20.dp)) {
@@ -100,6 +102,11 @@ fun SetupScreen(
                 label = androidx.compose.ui.res.stringResource(R.string.haptics),
                 checked = hapticsEnabled,
                 onCheckedChange = onHaptics,
+            )
+            SettingToggle(
+                label = androidx.compose.ui.res.stringResource(R.string.reduced_motion),
+                checked = reducedMotion,
+                onCheckedChange = onReducedMotion,
             )
             Spacer(Modifier.height(20.dp))
             PrimaryButton(
