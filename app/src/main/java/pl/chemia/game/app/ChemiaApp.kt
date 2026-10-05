@@ -119,6 +119,12 @@ fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
                         remainingSecondsProvider = vm::remainingSeconds,
                         onSkip = vm::skipCurrent,
                         onDone = vm::completeCurrent,
+                        onReviewConsent = {
+                            vm.reviewConsent()
+                            navController.navigate(Route.ConsentA) {
+                                popUpTo(Route.Session) { inclusive = true }
+                            }
+                        },
                         onEnd = {
                             vm.clearSensitiveSession()
                             goHome(navController)
