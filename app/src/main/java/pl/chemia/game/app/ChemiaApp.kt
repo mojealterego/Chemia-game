@@ -31,7 +31,7 @@ private object Route {
 }
 
 @Composable
-fun ChemiaApp(vm: ChemiaViewModel = viewModel()) {
+fun ChemiaApp(vm: ChemiaViewModel = viewModel(factory = ChemiaViewModel.Factory)) {
     val navController = rememberNavController()
     val state = vm.uiState
 
