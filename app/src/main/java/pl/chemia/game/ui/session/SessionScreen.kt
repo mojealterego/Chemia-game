@@ -43,6 +43,7 @@ import kotlinx.coroutines.delay
 import pl.chemia.game.R
 import pl.chemia.game.SoundCue
 import pl.chemia.game.SoundEngine
+import pl.chemia.game.engine.SessionPhase
 import pl.chemia.game.model.GameCard
 import pl.chemia.game.ui.common.BrandHeader
 import pl.chemia.game.ui.common.GlassPanel
@@ -63,6 +64,8 @@ fun SessionScreen(
     card: GameCard?,
     heat: Int,
     chain: Int,
+    phase: SessionPhase,
+    directorDeescalated: Boolean,
     soundEnabled: Boolean,
     hapticsEnabled: Boolean,
     remainingSecondsProvider: () -> Long,
@@ -74,6 +77,14 @@ fun SessionScreen(
     val haptic = LocalHapticFeedback.current
     var discreet by remember { mutableStateOf(false) }
     var remaining by remember { mutableLongStateOf(remainingSecondsProvider()) }
+    val phaseLabel = androidx.compose.ui.res.stringResource(
+        when (phase) {
+            SessionPhase.WARMUP -> R.string.phase_warmup
+            SessionPhase.BUILD -> R.string.phase_build
+            SessionPhase.PEAK -> R.string.phase_peak
+            SessionPhase.COOLDOWN -> R.string.phase_cooldown
+        }
+    )
     val animatedHeat by animateFloatAsState(
         targetValue = heat / 100f,
         animationSpec = tween(650),
@@ -103,6 +114,16 @@ fun SessionScreen(
 
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp)) {
         BrandHeader(compact = true, trailing = formatDuration(remaining))
+        Spacer(Modifier.height(10.dp))
+        PremiumChip(phaseLabel, Gold)
+        if (directorDeescalated) {
+            Spacer(Modifier.height(6.dp))
+            Text(
+                androidx.compose.ui.res.stringResource(R.string.director_softening),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = MaterialTheme.typography.labelMedium,
+            )
+        }
         Spacer(Modifier.height(16.dp))
 
         Row(Modifier.fillMaxWidth()) {
