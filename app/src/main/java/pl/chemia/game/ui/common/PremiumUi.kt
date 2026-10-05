@@ -57,7 +57,20 @@ import pl.chemia.game.ui.theme.RoseSoft
 import pl.chemia.game.ui.theme.Teal
 
 @Composable
-fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
+fun PremiumBackground(
+    reducedMotion: Boolean = false,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    if (reducedMotion) {
+        PremiumBackgroundFrame(
+            roseShift = 0f,
+            goldShift = 0f,
+            glowAlpha = 0.9f,
+            content = content,
+        )
+        return
+    }
+
     val motion = rememberInfiniteTransition(label = "ambient")
     val roseShift by motion.animateFloat(
         initialValue = -24f,
@@ -87,6 +100,21 @@ fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
         label = "glowAlpha",
     )
 
+    PremiumBackgroundFrame(
+        roseShift = roseShift,
+        goldShift = goldShift,
+        glowAlpha = glowAlpha,
+        content = content,
+    )
+}
+
+@Composable
+private fun PremiumBackgroundFrame(
+    roseShift: Float,
+    goldShift: Float,
+    glowAlpha: Float,
+    content: @Composable BoxScope.() -> Unit,
+) {
     Box(
         Modifier
             .fillMaxSize()
@@ -154,7 +182,7 @@ fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
             )
         }
     }
-}
+
 
 @Composable
 fun BrandHeader(compact: Boolean = false, trailing: String? = null) {
