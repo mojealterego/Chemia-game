@@ -39,6 +39,7 @@ class MutualRevealScreenTest {
                     directorDeescalated = false,
                     soundEnabled = false,
                     hapticsEnabled = false,
+                    reducedMotion = true,
                     remainingSecondsProvider = { 120L },
                     onSkip = {},
                     onDone = { false },
