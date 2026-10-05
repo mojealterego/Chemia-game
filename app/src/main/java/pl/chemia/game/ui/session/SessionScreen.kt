@@ -56,6 +56,7 @@ import pl.chemia.game.SoundEngine
 import pl.chemia.game.engine.MutualRevealGate
 import pl.chemia.game.engine.SessionPhase
 import pl.chemia.game.model.GameCard
+import pl.chemia.game.ui.MotionPolicy
 import pl.chemia.game.ui.common.BrandHeader
 import pl.chemia.game.ui.common.GlassPanel
 import pl.chemia.game.ui.common.PremiumChip
@@ -79,6 +80,7 @@ fun SessionScreen(
     directorDeescalated: Boolean,
     soundEnabled: Boolean,
     hapticsEnabled: Boolean,
+    reducedMotion: Boolean,
     remainingSecondsProvider: () -> Long,
     onSkip: () -> Unit,
     onDone: () -> Boolean,
@@ -107,7 +109,7 @@ fun SessionScreen(
     )
     val animatedHeat by animateFloatAsState(
         targetValue = heat / 100f,
-        animationSpec = tween(650),
+        animationSpec = tween(MotionPolicy.duration(650, reducedMotion)),
         label = "heat",
     )
 
@@ -181,9 +183,9 @@ fun SessionScreen(
         AnimatedContent(
             targetState = card to revealGate.canReveal,
             transitionSpec = {
-                (fadeIn(tween(320)) + scaleIn(tween(320), initialScale = 0.96f))
+                (fadeIn(tween(MotionPolicy.duration(320, reducedMotion))) + scaleIn(tween(MotionPolicy.duration(320, reducedMotion)), initialScale = 0.96f))
                     .togetherWith(
-                        fadeOut(tween(160)) + scaleOut(tween(160), targetScale = 1.02f)
+                        fadeOut(tween(MotionPolicy.duration(160, reducedMotion))) + scaleOut(tween(MotionPolicy.duration(160, reducedMotion)), targetScale = 1.02f)
                     )
             },
             label = "card",
