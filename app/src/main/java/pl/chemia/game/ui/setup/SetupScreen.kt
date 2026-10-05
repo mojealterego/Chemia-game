@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -38,7 +39,7 @@ fun SetupScreen(
     onHaptics: (Boolean) -> Unit,
     onStart: () -> Unit,
 ) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp)) {
+    Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(20.dp)) {
         BrandHeader(compact = true)
         Spacer(Modifier.height(22.dp))
         ScreenTitle(androidx.compose.ui.res.stringResource(R.string.setup_title))
