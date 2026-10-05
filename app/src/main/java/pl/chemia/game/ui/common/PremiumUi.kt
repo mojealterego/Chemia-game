@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.animation.core.RepeatMode
@@ -36,6 +37,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -134,7 +137,12 @@ fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
                 .blur(72.dp)
                 .background(Burgundy.copy(alpha = 0.11f), CircleShape)
         )
-        content()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .safeDrawingPadding(),
+            content = content,
+        )
     }
 }
 
@@ -215,7 +223,12 @@ fun PrimaryButton(
 
 @Composable
 fun ScreenTitle(title: String, body: String? = null) {
-    Text(title, style = MaterialTheme.typography.headlineMedium, color = Ivory)
+    Text(
+        title,
+        modifier = Modifier.semantics { heading() },
+        style = MaterialTheme.typography.headlineMedium,
+        color = Ivory,
+    )
     if (body != null) {
         Spacer(Modifier.height(8.dp))
         Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
