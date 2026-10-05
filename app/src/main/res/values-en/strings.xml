@@ -55,4 +55,9 @@
     <string name="completed_cards">Done: %1$d</string>
     <string name="skipped_cards">Skipped: %1$d</string>
     <string name="final_heat">HEAT: %1$d</string>
+    <string name="phase_warmup">WARM-UP</string>
+    <string name="phase_build">BUILD</string>
+    <string name="phase_peak">PEAK</string>
+    <string name="phase_cooldown">COOLDOWN</string>
+    <string name="director_softening">Pace softened after skips</string>
 </resources>
