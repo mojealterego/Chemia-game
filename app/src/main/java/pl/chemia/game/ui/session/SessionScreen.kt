@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.progressSemantics
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -41,6 +42,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -128,6 +132,7 @@ fun SessionScreen(
                 androidx.compose.ui.res.stringResource(R.string.director_softening),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
             )
         }
         Spacer(Modifier.height(16.dp))
@@ -144,7 +149,10 @@ fun SessionScreen(
         Spacer(Modifier.height(6.dp))
         LinearProgressIndicator(
             progress = { animatedHeat },
-            modifier = Modifier.fillMaxWidth().height(9.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(9.dp)
+                .progressSemantics(heat / 100f),
             color = Rose,
             trackColor = Divider,
         )
