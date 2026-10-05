@@ -10,7 +10,9 @@ import pl.chemia.game.model.Intensity
 class CardRepository(private val context: Context) {
 
     fun load(): List<GameCard> =
-        parseRaw(R.raw.cards_core_pl) + parseRaw(R.raw.cards_mode_pl)
+        CardCatalogValidator.requireValid(
+            parseRaw(R.raw.cards_core_pl) + parseRaw(R.raw.cards_mode_pl)
+        )
 
     private fun parseRaw(resId: Int): List<GameCard> {
         val json = context.resources.openRawResource(resId)
