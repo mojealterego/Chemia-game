@@ -182,7 +182,7 @@ private fun PremiumBackgroundFrame(
             )
         }
     }
-
+}
 
 @Composable
 fun BrandHeader(compact: Boolean = false, trailing: String? = null) {
