@@ -30,22 +30,23 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
         with:
+          gradle-version: "8.13"
           cache-provider: basic
 
       - name: Unit tests
-        run: ./gradlew :app:testAdultDebugUnitTest :app:testPlayDebugUnitTest --stacktrace
+        run: gradle :app:testAdultDebugUnitTest :app:testPlayDebugUnitTest --stacktrace
 
       - name: Compile Compose UI tests
-        run: ./gradlew :app:compileAdultDebugAndroidTestKotlin :app:compilePlayDebugAndroidTestKotlin --stacktrace
+        run: gradle :app:compileAdultDebugAndroidTestKotlin :app:compilePlayDebugAndroidTestKotlin --stacktrace
 
       - name: Lint
-        run: ./gradlew :app:lintAdultDebug :app:lintPlayDebug --stacktrace
+        run: gradle :app:lintAdultDebug :app:lintPlayDebug --stacktrace
 
       - name: Build installable APKs
-        run: ./gradlew :app:assembleAdultDebug :app:assemblePlayDebug --stacktrace
+        run: gradle :app:assembleAdultDebug :app:assemblePlayDebug --stacktrace
 
       - name: Build optimized release artifacts
-        run: ./gradlew :app:assembleAdultRelease :app:bundlePlayRelease --stacktrace
+        run: gradle :app:assembleAdultRelease :app:bundlePlayRelease --stacktrace
 
       - name: Verify Android artifacts
         shell: bash
