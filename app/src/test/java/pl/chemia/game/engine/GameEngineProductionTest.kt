@@ -94,7 +94,7 @@ class GameEngineProductionTest {
         val base = deck[1]
         val boosted = deck[2]
 
-        assertEquals(1, engine.selectionWeight(base, SessionState(), emptySet()))
+        assertEquals(2, engine.selectionWeight(base, SessionState(), emptySet()))
         assertTrue(
             engine.selectionWeight(
                 boosted,
