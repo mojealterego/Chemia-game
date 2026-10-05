@@ -163,6 +163,23 @@ class ChemiaViewModel(application: Application) : AndroidViewModel(application) 
         return reachedAfterglow
     }
 
+    fun reviewConsent() {
+        uiState = uiState.copy(
+            effectiveConsent = intersectConsent(
+                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+                ConsentProfile(allowedCategories = emptySet(), maxIntensity = Intensity.SOFT),
+            ),
+            consentConflict = false,
+            session = SessionState(),
+            currentCard = null,
+            currentPlayerIndex = 0,
+            sessionStartedAtMs = null,
+            afterglowCard = null,
+            directorPhase = SessionPhase.WARMUP,
+            directorDeescalated = false,
+        )
+    }
+
     fun nextAfterglow() {
         uiState = uiState.copy(
             afterglowCard = if (afterglowDeck.isEmpty()) null else afterglowDeck[random.nextInt(afterglowDeck.size)]
