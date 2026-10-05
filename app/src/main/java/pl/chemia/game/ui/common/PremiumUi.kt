@@ -148,8 +148,8 @@ fun PremiumBackground(content: @Composable BoxScope.() -> Unit) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth()
-                    .widthIn(max = 840.dp),
+                    .widthIn(max = 840.dp)
+                    .fillMaxWidth(),
                 content = content,
             )
         }
