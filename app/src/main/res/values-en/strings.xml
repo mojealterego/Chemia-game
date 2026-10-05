@@ -60,4 +60,8 @@
     <string name="phase_peak">PEAK</string>
     <string name="phase_cooldown">COOLDOWN</string>
     <string name="director_softening">Pace softened after skips</string>
-    <string name="review_consent">REVIEW BOUNDARIES</string>\n</resources>
+    <string name="review_consent">REVIEW BOUNDARIES</string>\n    <string name="session_style">Session style</string>
+    <string name="style_connection">CONNECTION</string>
+    <string name="style_chemistry">CHEMISTRY</string>
+    <string name="style_adventure">ADVENTURE</string>
+</resources>
