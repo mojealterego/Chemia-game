@@ -60,4 +60,4 @@
     <string name="phase_peak">PEAK</string>
     <string name="phase_cooldown">COOLDOWN</string>
     <string name="director_softening">Pace softened after skips</string>
-</resources>
+    <string name="review_consent">REVIEW BOUNDARIES</string>\n</resources>
