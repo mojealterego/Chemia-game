@@ -72,11 +72,11 @@ class GameEngineProductionTest {
         val engine = GameEngine(Random(1))
         val initial = SessionState(heat = 42, chain = 4)
 
-        val result = engine.skip(initial, "b")
+        val result = engine.skip(initial, deck[1])
 
         assertEquals(42, result.heat)
         assertEquals(0, result.chain)
-        assertTrue("b" in result.skippedIds)
+        assertTrue("b" in result.skippedIds)\n        assertEquals(1, result.consecutiveSkips)\n        assertEquals(Category.FLIRT, result.recentCategories.last())
     }
 
     @Test
@@ -85,7 +85,7 @@ class GameEngineProductionTest {
         val result = engine.complete(SessionState(heat = 96, chain = 2), deck.last())
 
         assertEquals(100, result.heat)
-        assertEquals(3, result.chain)
+        assertEquals(3, result.chain)\n        assertEquals(0, result.consecutiveSkips)\n        assertEquals(Category.TOUCH, result.recentCategories.last())
     }
 
     @Test
