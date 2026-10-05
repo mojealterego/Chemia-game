@@ -40,6 +40,7 @@ class SessionScreenTest {
                     directorDeescalated = false,
                     soundEnabled = false,
                     hapticsEnabled = false,
+                    reducedMotion = true,
                     remainingSecondsProvider = { 60L },
                     onSkip = {},
                     onDone = { false },
