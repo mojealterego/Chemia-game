@@ -72,4 +72,4 @@
     <string name="confirm_partner_b">PARTNER 2: TAK</string>
     <string name="confirmed">POTWIERDZONE</string>
     <string name="content_locked">TREŚĆ ZABLOKOWANA</string>
-</resources>
+    <string name="reduced_motion">Ogranicz ruch</string>\n</resources>
