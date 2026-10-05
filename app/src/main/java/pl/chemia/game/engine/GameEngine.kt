@@ -73,6 +73,7 @@ class GameEngine(
             recentIds = (state.recentIds + card.id).takeLast(8),
             skippedIds = state.skippedIds + card.id,
             recentCategories = (state.recentCategories + card.category).takeLast(6),
+            seenCategories = state.seenCategories + card.category,
             consecutiveSkips = (state.consecutiveSkips + 1).coerceAtMost(9),
             skippedCount = state.skippedCount + 1,
         )
@@ -83,6 +84,7 @@ class GameEngine(
             chain = (state.chain + 1).coerceAtMost(9),
             recentIds = (state.recentIds + card.id).takeLast(8),
             recentCategories = (state.recentCategories + card.category).takeLast(6),
+            seenCategories = state.seenCategories + card.category,
             consecutiveSkips = 0,
             completedCount = state.completedCount + 1,
         )
