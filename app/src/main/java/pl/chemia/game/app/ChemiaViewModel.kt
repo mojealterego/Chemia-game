@@ -149,6 +149,11 @@ class ChemiaViewModel(
         viewModelScope.launch { settingsRepository.setHaptics(enabled) }
     }
 
+    fun setReducedMotion(enabled: Boolean) {
+        uiState = uiState.copy(settings = uiState.settings.copy(reducedMotion = enabled))
+        viewModelScope.launch { settingsRepository.setReducedMotion(enabled) }
+    }
+
     fun startSession(nowEpochMs: Long = System.currentTimeMillis()) {
         val clean = SessionState()
         commit(
