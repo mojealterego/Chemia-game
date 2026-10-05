@@ -37,6 +37,8 @@ fun AfterglowScreen(
     completedCount: Int,
     skippedCount: Int,
     finalHeat: Int,
+    completionRate: Int,
+    varietyCount: Int,
     onAnother: () -> Unit,
     onFinish: () -> Unit,
 ) {
@@ -64,6 +66,18 @@ fun AfterglowScreen(
             PremiumChip(
                 androidx.compose.ui.res.stringResource(R.string.final_heat, finalHeat),
                 Rose,
+            )
+        }
+        Spacer(Modifier.height(10.dp))
+        Row(Modifier.fillMaxWidth()) {
+            PremiumChip(
+                androidx.compose.ui.res.stringResource(R.string.completion_rate, completionRate),
+                Teal,
+            )
+            Spacer(Modifier.weight(1f))
+            PremiumChip(
+                androidx.compose.ui.res.stringResource(R.string.variety_count, varietyCount),
+                Gold,
             )
         }
         Spacer(Modifier.height(18.dp))
