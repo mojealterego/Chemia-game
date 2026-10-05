@@ -22,6 +22,12 @@ enum class Intensity(val rank: Int) {
     }
 }
 
+enum class SessionStyle(val preferredCategories: Set<Category>) {
+    CONNECTION(setOf(Category.CONNECTION, Category.QUESTION, Category.FLIRT)),
+    CHEMISTRY(setOf(Category.FLIRT, Category.KISS, Category.TOUCH)),
+    ADVENTURE(setOf(Category.ROLEPLAY, Category.FLIRT, Category.QUESTION)),
+}
+
 data class GameCard(
     val id: String,
     val category: Category,
